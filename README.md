@@ -44,9 +44,8 @@ EXECUTE PROCEDURE trigger_set_timestamp();
 
 ```
 
-TRY CHANGING FROM POOL TO CLIENT CONNECT!!!!!!
+## Dev server webpack config to proxy /api queries to heroku backed
 
-<!-- ## Dev server webpack config to proxy /api queries to heroku backed
 <https://webpack.js.org/configuration/dev-server/#devserverproxy>
 
 ```json
@@ -55,10 +54,9 @@ devServer: {
     proxy: {
       "/api": {
         target: "https://calm-waters-80883.herokuapp.com",
-        pathRewrite: { "^/api": "" },
         secure: false,           // important!
         changeOrigin: true,      // important!
       },
     },
   },
-``` -->
+```

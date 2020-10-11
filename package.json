@@ -1,14 +1,14 @@
 {
-  "name": "package.json",
+  "name": "heroku-postgres-webpack",
   "version": "1.0.0",
-  "description": "",
+  "description": "fullstack node+postgres+react with heroku hosting",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --mode development --open",
     "start": "node server.js",
     "heroku-postbuild": "webpack -p"
   },
-  "author": "rajesh babu",
+  "author": "Scott Hill",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.3",
