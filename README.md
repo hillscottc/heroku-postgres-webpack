@@ -2,6 +2,21 @@
 
 <https://calm-waters-80883.herokuapp.com>
 
+Created postgresql-dimensional-59756 as DATABASE_URL
+
+`heroku pg:psql`
+
+```sql
+CREATE TABLE movies(
+id SERIAL PRIMARY KEY,
+title VARCHAR(30),
+year SMALLINT,
+thumb VARCHAR(30),
+created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+ );
+```
+
+
 A simple deployment ready webpack-react application for heroku.
 Please follow the link for detailed explanation: https://codeburst.io/deploy-your-webpack-apps-to-heroku-in-3-simple-steps-4ae072af93a8
 
