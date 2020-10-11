@@ -1,12 +1,12 @@
-// const Pool = require("pg").Pool;
-const { Client } = require("pg");
+const Pool = require("pg").Pool;
+// const { Client } = require("pg");
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
+// const client = new Client({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: {
+//     rejectUnauthorized: false,
+//   },
+// });
 
 // client.connect();
 // client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
@@ -17,37 +17,36 @@ const client = new Client({
 //   client.end();
 // });
 
-const getMovies = () => {
-  return new Promise(function (resolve, reject) {
-    client.connect();
-    client.query("SELECT * FROM movies ORDER BY id ASC;", (error, results) => {
-      if (error) {
-        reject(error);
-      }
-      resolve(results.rows);
-      client.end();
-    });
-  });
-};
-
-// const pool = new Pool({
-//   user: "vinyl",
-//   host: "localhost",
-//   database: "vinyl",
-//   password: "vinyl",
-//   port: 5432,
-// });
-
 // const getMovies = () => {
 //   return new Promise(function (resolve, reject) {
-//     pool.query("SELECT * FROM movies ORDER BY id ASC", (error, results) => {
+//     client.connect();
+//     client.query("SELECT * FROM movies ORDER BY id ASC;", (error, results) => {
 //       if (error) {
 //         reject(error);
 //       }
 //       resolve(results.rows);
+//       client.end();
 //     });
 //   });
 // };
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
+
+const getMovies = () => {
+  return new Promise(function (resolve, reject) {
+    pool.query("SELECT * FROM movies ORDER BY id ASC", (error, results) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(results.rows);
+    });
+  });
+};
 
 // const createMerchant = (body) => {
 //   return new Promise(function(resolve, reject) {

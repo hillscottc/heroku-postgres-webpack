@@ -7,7 +7,7 @@ const Index = () => {
       Hello React! You are ready for heroku
       <section>
         <a href="https://calm-waters-80883.herokuapp.com/api/movies">
-          https://calm-waters-80883.herokuapp.com/movies
+          https://calm-waters-80883.herokuapp.com/api/movies
         </a>
         <br />
       </section>

@@ -44,6 +44,8 @@ EXECUTE PROCEDURE trigger_set_timestamp();
 
 ```
 
+TRY CHANGING FROM POOL TO CLIENT CONNECT!!!!!!
+
 <!-- ## Dev server webpack config to proxy /api queries to heroku backed
 <https://webpack.js.org/configuration/dev-server/#devserverproxy>
 

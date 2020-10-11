@@ -7,17 +7,17 @@ module.exports = {
   },
 
   // this crashes the backend!
-  // devServer: {
-  //   // Set proxy to backend so /api/movies goes to https:[backend-url]/api/movies
-  //   proxy: {
-  //     "/api": {
-  //       target: "https://calm-waters-80883.herokuapp.com",
-  //       // pathRewrite: { "^/api": "" },
-  //       secure: false,
-  //       changeOrigin: true,
-  //     },
-  //   },
-  // },
+  devServer: {
+    // Set proxy to backend so /api/movies goes to https:[backend-url]/api/movies
+    proxy: {
+      "/api": {
+        target: "https://calm-waters-80883.herokuapp.com",
+        // pathRewrite: { "^/api": "" },
+        secure: false,
+        changeOrigin: true,
+      },
+    },
+  },
 
   module: {
     rules: [
