@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
 });
 
 // movie list
-app.get("/movies", (req, res) => {
+app.get("/api/movies", (req, res) => {
   movie_model
     .getMovies()
     .then((response) => {
