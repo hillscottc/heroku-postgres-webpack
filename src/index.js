@@ -6,11 +6,7 @@ const Index = () => {
     <div>
       Hello React! You are ready for heroku
       <section>
-        <a href="/api/movies">/api/movies</a>
-        <br />
-        <a href="/movies">/movies</a>
-        <br />
-        <a href="https://calm-waters-80883.herokuapp.com/movies">
+        <a href="https://calm-waters-80883.herokuapp.com/api/movies">
           https://calm-waters-80883.herokuapp.com/movies
         </a>
         <br />
