@@ -1,5 +1,7 @@
 import React from "react";
 import * as XDate from "xdate";
+import styled from "styled-components";
+import { useTable, useSortBy } from "react-table";
 // import "./MovieList.css";
 
 const getFormattedDate = (date) => {
@@ -8,52 +10,121 @@ const getFormattedDate = (date) => {
   return dateObj.toString("M/d/yy h(:mm)TT");
 };
 
-const MovieRow = ({ movie }) => {
-  const { id, title, year, created_at, updated_at } = movie;
+const Styles = styled.div`
+  padding: 1rem;
 
-  const handleDelete = (id, e) => {
-    e.preventDefault();
-    console.log("DELETE!!!!");
-    // deleteAlbum(id);
-  };
+  table {
+    border-spacing: 0;
+    border: 1px solid black;
 
-  return (
-    <div>
-      <button onClick={(e) => handleDelete(id, e)}>X</button>
-      <div>{id}</div>
-      <div>{title}</div>
-      <div>{year}</div>
-      <div>{getFormattedDate(created_at)}</div>
-      <div>{getFormattedDate(updated_at)}</div>
-    </div>
+    tr {
+      :last-child {
+        td {
+          border-bottom: 0;
+        }
+      }
+    }
+
+    th,
+    td {
+      margin: 0;
+      padding: 0.5rem;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+
+      :last-child {
+        border-right: 0;
+      }
+    }
+  }
+`;
+
+function Table({ columns, data }) {
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+  } = useTable(
+    {
+      columns,
+      data,
+    },
+    useSortBy
   );
-};
 
-const MovieList = ({ movies }) => {
+  // Cap rows at 100
+  const firstPageRows = rows.slice(0, 100);
+
   return (
-    <main className="grid">
-      {/* <header className="grid__header">
-        {["Id", "Artist", "Title", "Year", "Condition", "Created At"].map(
-          (heading) => (
-            <div key={heading} className="grid__header__item">
-              {heading}
-            </div>
-          )
-        )}
-      </header> */}
-      <section className="grid__body">
-        {!movies && <div>"There is no movie data available."</div>}
-        {movies &&
-          movies.map((movie) => (
-            <MovieRow
-              key={movie.id}
-              movie={movie}
-              // deleteAlbum={deleteAlbum}
-              // isOdd={isOdd}
-            />
+    <>
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                // Add the sorting props to control sorting. For this example
+                // we can add them into the header props
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render("Header")}
+                  {/* Add a sort direction indicator */}
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? " 🔽"
+                        : " 🔼"
+                      : ""}
+                  </span>
+                </th>
+              ))}
+            </tr>
           ))}
-      </section>
-    </main>
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {firstPageRows.map((row, i) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  return (
+                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <br />
+      <div>Showing the first 100 results of {rows.length} rows</div>
+    </>
   );
-};
+}
+
+function MovieList({ movies }) {
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "Title",
+        accessor: "title",
+      },
+      {
+        Header: "Year",
+        accessor: "year",
+      },
+    ],
+    []
+  );
+
+  const data = React.useMemo(() => movies, [movies]);
+  // const data = movies;
+
+  return (
+    <Styles>
+      <Table columns={columns} data={data} />
+    </Styles>
+  );
+}
+
 export default MovieList;
