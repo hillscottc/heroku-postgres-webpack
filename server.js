@@ -26,6 +26,8 @@ app.get("/api/movies", (req, res) => {
 
 // add a movie
 app.post("/api/movies", (req, res) => {
+  console.log("ADD A MOVIE!", req.body);
+
   movie_model
     .createMovie(req.body)
     .then((response) => {
