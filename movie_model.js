@@ -20,13 +20,10 @@ const getMovies = () => {
 
 const createMovie = (body) => {
   return new Promise((resolve, reject) => {
-    const { title } = body;
-
-    console.log("TRY INSERT:", { title });
-
+    const { title, year } = body;
     pool.query(
-      "INSERT INTO movies (title) VALUES ($1) RETURNING *",
-      [title],
+      "INSERT INTO movies (title, year) VALUES ($1, $2) RETURNING *",
+      [title, year],
       (error, results) => {
         if (error) {
           console.log("ERROR!:", error);
