@@ -13,11 +13,12 @@ Heroku app name is calm-waters-80883
 - Production, served from heroku
   <https://calm-waters-80883.herokuapp.com>
 
-## Databse stuff
+## Database
 
-Heroku DATABASE_URL=postgresql-dimensional-59756
+- The Heroku DATABASE_URL is `postgresql-dimensional-59756`
+- To use psql: `heroku pg:psql`
 
-`heroku pg:psql`
+The `movies` table was created with:
 
 ```sql
 CREATE TABLE movies(
@@ -44,33 +45,41 @@ EXECUTE PROCEDURE trigger_set_timestamp();
 
 ```
 
-## CURL EXAMPLES
+### cURL Examples
 
-- GET
+- GET ALL
 
 ```bash
 curl -i -H "Accept: application/json" "https://calm-waters-80883.herokuapp.com/api/movies"
 ```
 
-- POST
+- INSERT WITH JSON DATA
 
 ```bash
 curl -H "Content-Type: application/json" -X POST \
-  -d '{"title":"some title"}' "https://calm-waters-80883.herokuapp.com/api/movies"
+  -d '{"title":"blah", "year":"2020"}' \
+  "https://calm-waters-80883.herokuapp.com/api/movies"
 ```
 
-## Dev server webpack config to proxy /api queries to heroku backed
+- DELETE
+
+```bash
+# where 8 is the id
+curl -X DELETE "https://calm-waters-80883.herokuapp.com/api/movies/8"
+```
+
+### Dev server webpack config to proxy /api queries
 
 <https://webpack.js.org/configuration/dev-server/#devserverproxy>
 
 ```json
 devServer: {
-    // Set proxy to backend so /api/movies goes to https:[backend-url]/movies
+    // Set proxy so /api goes to the node server
     proxy: {
       "/api": {
         target: "https://calm-waters-80883.herokuapp.com",
-        secure: false,           // important!
-        changeOrigin: true,      // important!
+        secure: false,
+        changeOrigin: true,
       },
     },
   },

@@ -7,7 +7,7 @@ module.exports = {
   },
 
   devServer: {
-    // Set proxy to backend so /api/movies goes to [backend-url]/api/movies
+    // Set proxy so /api goes to the node server
     proxy: {
       "/api": {
         target: "https://calm-waters-80883.herokuapp.com",
