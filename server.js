@@ -1,8 +1,15 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const path = require("path");
 const port = process.env.PORT || 8080;
 const app = express();
 const movie_model = require("./movie_model");
+
+// create application/json parser, to handle json uploads
+var jsonParser = bodyParser.json();
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 // the __dirname is the current directory from where the script is running
 app.use(express.static(__dirname));
@@ -24,8 +31,14 @@ app.get("/api/movies", (req, res) => {
     });
 });
 
+// EXAMPLE FOR FORM DATA <https://stackoverflow.com/questions/9177049/express-js-req-body-undefined>
+// // POST /login gets urlencoded bodies
+// app.post('/login', urlencodedParser, function (req, res) {
+//   res.send('welcome, ' + req.body.username)
+// })
+
 // add a movie
-app.post("/api/movies", (req, res) => {
+app.post("/api/movies", jsonParser, (req, res) => {
   console.log("ADD A MOVIE!", req.body);
 
   movie_model
