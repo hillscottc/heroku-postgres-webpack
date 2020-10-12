@@ -113,6 +113,13 @@ function MovieList({ movies }) {
         Header: "Year",
         accessor: "year",
       },
+      {
+        accessor: "accessor",
+        Header: "edit?",
+        Cell: ({ row: { original } }) => (
+          <button onClick={() => console.log(original)}>Button text</button>
+        ),
+      },
     ],
     []
   );
