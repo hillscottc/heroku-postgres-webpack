@@ -55,10 +55,8 @@ curl -i -H "Accept: application/json" "https://calm-waters-80883.herokuapp.com/a
 - POST
 
 ```bash
-curl -H "Content-Type: application/json" \
-  --request POST \
-  --data '{"title":"some title"}' \
-  "https://calm-waters-80883.herokuapp.com/api/movies"
+curl -H "Content-Type: application/json" -X POST \
+  -d '{"title":"some title"}' "https://calm-waters-80883.herokuapp.com/api/movies"
 ```
 
 ## Dev server webpack config to proxy /api queries to heroku backed
