@@ -24,4 +24,28 @@ app.get("/api/movies", (req, res) => {
     });
 });
 
+// add a movie
+app.post("/api/movies", (req, res) => {
+  movie_model
+    .createMovie(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+// delete a movie
+app.delete("/api/movies/:id", (req, res) => {
+  movie_model
+    .deleteMovie(req.params.id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
 app.listen(port);

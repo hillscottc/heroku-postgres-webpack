@@ -8,7 +8,7 @@ const pool = new Pool({
 });
 
 const getMovies = () => {
-  return new Promise(function (resolve, reject) {
+  return new Promise((resolve, reject) => {
     pool.query("SELECT * FROM movies ORDER BY id ASC", (error, results) => {
       if (error) {
         reject(error);
@@ -18,34 +18,38 @@ const getMovies = () => {
   });
 };
 
-// const createMerchant = (body) => {
-//   return new Promise(function(resolve, reject) {
-//     const { name, email } = body
+const createMovie = (body) => {
+  return new Promise((resolve, reject) => {
+    const { title, year, thumb } = body;
 
-//     pool.query('INSERT INTO merchants (name, email) VALUES ($1, $2) RETURNING *', [name, email], (error, results) => {
-//       if (error) {
-//         reject(error)
-//       }
-//       resolve(`A new merchant has been added added: ${JSON.stringify(results.rows[0])}`)
-//     })
-//   })
-// }
+    pool.query(
+      "INSERT INTO movies (title, year, thumb) VALUES ($1, $2, $3) RETURNING *",
+      [title, year, thumb],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(`Added movie: ${JSON.stringify(results.rows[0])}`);
+      }
+    );
+  });
+};
 
-// const deleteMerchant = (merchantId) => {
-//   return new Promise(function(resolve, reject) {
-//     const id = parseInt(merchantId)
+const deleteMovie = (movieId) => {
+  return new Promise((resolve, reject) => {
+    const id = parseInt(movieId);
 
-//     pool.query('DELETE FROM merchants WHERE id = $1', [id], (error, results) => {
-//       if (error) {
-//         reject(error)
-//       }
-//       resolve(`Merchant deleted with ID: ${id}`)
-//     })
-//   })
-// }
+    pool.query("DELETE FROM movies WHERE id = $1", [id], (error, results) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(`Movie deleted with ID: ${id}`);
+    });
+  });
+};
 
 module.exports = {
   getMovies,
-  // createMerchant,
-  // deleteMerchant,
+  createMovie,
+  deleteMovie,
 };

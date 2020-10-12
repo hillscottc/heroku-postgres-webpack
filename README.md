@@ -44,6 +44,23 @@ EXECUTE PROCEDURE trigger_set_timestamp();
 
 ```
 
+## CURL EXAMPLES
+
+- GET
+
+```bash
+curl -i -H "Accept: application/json" "https://calm-waters-80883.herokuapp.com/api/movies"
+```
+
+- POST
+
+```bash
+curl -H "Content-Type: application/json" \
+  --request POST \
+  --data '{"title":"some title"}' \
+  "https://calm-waters-80883.herokuapp.com/api/movies"
+```
+
 ## Dev server webpack config to proxy /api queries to heroku backed
 
 <https://webpack.js.org/configuration/dev-server/#devserverproxy>
